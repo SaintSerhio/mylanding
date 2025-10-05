@@ -140,12 +140,15 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const btnSubmit = document.querySelector('.btn__submit'),
           checkBox = document.querySelector('.btn__checkbox');
-
+          
+          btnSubmit.style.opacity = '0.5';
           checkBox.addEventListener('change', () => {
             if(checkBox.checked) {
                 btnSubmit.disabled = false;
+                btnSubmit.style.opacity = '1';
             } else {
                 btnSubmit.disabled = true;
+                btnSubmit.style.opacity = '0.5';
             }
         });
 
