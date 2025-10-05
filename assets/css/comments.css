@@ -1,0 +1,107 @@
+.comment-form {
+    background: rgba(127, 117, 117, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.comment-form input, 
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.comments-container {
+    margin-top: 30px;
+}
+
+.comments-container p {
+    width: 100%;
+    color: #f7450e;
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 2px;
+    margin: 0px 0px 30px 13px;
+}
+
+.comment-item {
+    background: #e9dede;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.comment-author {
+    font-size: 32px;
+    font-weight: bold;
+    color: #0b3450;
+    padding: 15px;
+
+}
+
+.comment-date {
+    font-size: 12px;
+    color: #7f7575;
+    padding: 15px 15px 5px 15px;
+}
+
+.comment-text {
+    font-size: 24px;
+    font-style: italic;
+    font-weight: 600;
+    padding: 5px 15px 15px 15px;
+}
+
+.comment-actions {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.comment-actions button {
+    background: #f7450e;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.admin-panel {
+    background: #0b3450;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    color: white;
+}
+
+.admin-panel input {
+    padding: 10px;
+    margin: 10px 0px 10px 0px;
+    border-radius: 10px;
+}
+
+#loginAdmin {
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #f7450e;
+}
+
+.comment__submit-title {
+    width: 100%;
+    color: #1d1b1b;
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: 2px;
+    margin-left: 13px;
+}

@@ -515,6 +515,7 @@ body {
         display: flex;
         flex-direction: column;
         padding: 30px 20px 0px 20px;
+        max-width: 100%;
         height: 400px;
         font-size: 24px;
         background-color: #0b3450;
@@ -523,12 +524,12 @@ body {
         font-weight: 600;
         letter-spacing: 2px;
         row-gap: 20px;
-        @media (max-width: 1025px) {
+        @media (max-width: 1150px) {
             flex-direction: row;
             justify-content: space-around;
             align-items: center;
             font-size: 16px;
-            font-weight: 400;
+            font-weight: 600;
             gap: 15px;
             width: 100%;
             height: 30px;
@@ -581,11 +582,10 @@ body {
 
     &__info-img {
         position: relative;
-        max-width: 800px;
+        max-width: 100%;
         max-height: 400px;
         overflow: hidden;
-        @media (max-width: 1025px) {
-            max-width: 100%;
+        @media (max-width: 1150px) {
             max-height: 100%;
         }
         
@@ -597,7 +597,7 @@ body {
         position: absolute;
         top: 0;
         left: 0;
-        max-width: 100%;
+        //max-width: 800px;
         max-height: 100%;
         object-fit: cover;
     }
@@ -608,7 +608,7 @@ body {
         position: absolute;
         right: -30px;
         bottom: -30px;
-        width: 400px;
+        max-width: 400px;
         padding: 20px;
         background: rgb(127, 117, 117, 0.7);
         font-size: 16px;
@@ -1556,6 +1556,8 @@ textarea {
     // .title__style
 
     &__style {
+        font-size: 32px;
+        margin-top: 60px;
     }
 }
 
@@ -1699,3 +1701,6 @@ textarea {
         text-shadow: -180px 0 0 #0f0, 180px 0 0 #0f0;
     }
 }
+
+@import url('slider.css');
+@import url('comments.css');

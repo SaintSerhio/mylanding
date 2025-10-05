@@ -5,11 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/comments.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <script src="assets/script/script.js"></script>
-    <script src="assets/script/slider.js"></script>
-    <script src="assets/script/rain.js"></script>
     <title>myLanding</title>
 </head>
 <body>
@@ -286,22 +283,24 @@
             <h2 class="title__style">Отзывы</h2>
             <section class="comment__container">
                 <div class="comment__content">
-                    <div class="box__comment">
-                        <h2 class="commentator">
-
-                        </h2>
-                        <span class="commentator__text">
-
-                        </span>
+                    <div class="comments-container" id="commentsContainer">
+                        <!-- Отзывы будут загружаться здесь -->
                     </div>
                 </div>
                 <div class="comment__submit-content">
-                    <h2 class="comment__submit-title">Сдесь вы можете оставить свой отзыв</h2>
-                    <form method="post">
-                    <p>Введите своё имя <input type="text" name="name"></p>
-                    <p>Введите свой комментарий <input type="text" name="comment"></p>
-                    <input type="submit" name="formSubmit" value="Submit" />
+                    <h2 class="comment__submit-title">Здесь вы можете оставить свой отзыв</h2>
+                    <form class="comment-form" id="commentForm">
+                        <input type="text" name="name" placeholder="Ваше имя" required>
+                        <textarea name="comment" placeholder="Ваш отзыв" required></textarea>
+                        <button type="submit" class="btn__submit">Отправить отзыв</button>
                     </form>
+                    
+                    <!-- Панель администратора для редактирования -->
+                    <div class="admin-panel" id="adminPanel">
+                        <h3>Панель администратора</h3>
+                        <input type="password" id="adminPassword" placeholder="Пароль">
+                        <button id="loginAdmin">Войти</button>
+                    </div>
                 </div>
             </section>
             <h2 class="main__contact title__style">Мои контакты</h2>
@@ -346,5 +345,11 @@
             </section>
         </main>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="assets/script/comments.js"></script>
+    <script src="assets/script/form.js"></script>
+    <script src="assets/script/script.js"></script>
+    <script src="assets/script/slider.js"></script>
+    <script src="assets/script/rain.js"></script>
 </body>
 </html>
