@@ -188,7 +188,7 @@
             <section class="slider__container">
                 <div class="gallery__container">
                     <div class="gallery__box">
-                        <div style="--i:1;">
+                        <!---<div style="--i:1;">
                             <div class="gallery__container-title">
                                 <a href="http://"><h4 class="gallery__slide">HTML</h4></a>
                             </div>
@@ -223,7 +223,7 @@
                                 <a href="http://"><h4 class="gallery__slide">Визитка</h4></a>
                             </div>
                             <img src="assets/images/slider/mycard.png" alt="">
-                        </div>
+                        </div>--->
                     </div>
                     <div class="battons">
                         <div class="btn prev"></div>
