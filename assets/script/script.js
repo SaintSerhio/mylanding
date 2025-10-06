@@ -180,6 +180,6 @@ window.addEventListener("DOMContentLoaded", () => {
     function spotLight(e) {
         light.style.background = `radial-gradient(circle at ${e.x / x * 100}% ${e.y / y *100}%, ${lightSize}`;
         room.style.cursor = 'none';
-    }
+    };
 
 })

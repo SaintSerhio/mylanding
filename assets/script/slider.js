@@ -4,6 +4,8 @@
 let currentRotation = 0;
 let autoRotateInterval;
 let isAutoRotate = true;
+let touchStartX = 0;
+let touchEndX = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeSliders();
@@ -21,6 +23,7 @@ function initialize3DSlider() {
     const prev = document.querySelector(".prev");
     const next = document.querySelector(".next");
     const box = document.querySelector(".gallery__box");
+    const container = document.querySelector(".gallery__container");
 
     if (prev && next && box) {
         prev.addEventListener('click', btnPrev);
@@ -28,10 +31,46 @@ function initialize3DSlider() {
         
         // Автопрокрутка
         startAutoRotation();
+        setupTouchEvents(container);
         
         // Остановка автопрокрутки при наведении
         box.addEventListener('mouseenter', stopAutoRotation);
         box.addEventListener('mouseleave', startAutoRotation);
+    }
+}
+
+function setupTouchEvents(container) {
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd);
+}
+
+function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+}
+
+function handleTouchEnd(event) {
+    if (!touchStartX) return;
+    
+    touchEndX = event.changedTouches[0].clientX;
+    handleSwipe();
+    
+    // Сброс значений
+    touchStartX = 0;
+    touchEndX = 0;
+}
+
+function handleSwipe() {
+    const swipeDistance = touchEndX - touchStartX;
+    const minSwipeDistance = 50; // Минимальное расстояние для срабатывания свайпа
+    
+    if (Math.abs(swipeDistance) < minSwipeDistance) return;
+    
+    if (swipeDistance > 0) {
+        // Свайп вправо - предыдущий слайд
+        rotateSlider(60);
+    } else {
+        // Свайп влево - следующий слайд
+        rotateSlider(-60);
     }
 }
 
