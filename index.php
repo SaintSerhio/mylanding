@@ -26,9 +26,9 @@
                     </div>
                     <nav class="header__navigation">
                         <ul class="navigation__content">
-                            <li class="navigation__button"><a href="#" class="button__link">Резюме</a></li>
-                            <li class="navigation__button"><a href="#" class="button__link">Работы</a></li>
-                            <li class="navigation__button"><a href="#" class="button__link">Контакты</a></li>
+                            <li class="navigation__button"><a href="#resume" class="button__link">Резюме</a></li>
+                            <li class="navigation__button"><a href="#work" class="button__link">Работы</a></li>
+                            <li class="navigation__button"><a href="#contact" class="button__link">Контакты</a></li>
                         </ul>
                     </nav>
                     <div class="header__contact btn-contact">
@@ -185,7 +185,7 @@
                 <span class="line__decor"></span>
             </div>
             <h2 class="slider__title title__style">Примеры работ</h2>
-            <section class="slider__container">
+            <section class="slider__container" id="work">
                 <div class="gallery__container">
                     <div class="gallery__box">
                         <!---<div style="--i:1;">
@@ -234,7 +234,7 @@
             <div class="decor">
                     <span class="line__decor"></span>
             </div>
-            <section class="light__box">
+            <section class="light__box" id="resume">
                 <div class="light__box-background">
                     <img src="assets/images/img/code.webp" alt="" class="backgraund__light">
                 </div>
@@ -304,7 +304,7 @@
                 </div>
             </section>
             <h2 class="main__contact title__style">Мои контакты</h2>
-            <section class="contact__container">
+            <section class="contact__container" id="contact">
                 <div class="contact__content">
                     <div class="header__contact contact__main">
                         <span>Заказать</span>

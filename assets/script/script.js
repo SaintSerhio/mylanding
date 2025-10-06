@@ -182,4 +182,67 @@ window.addEventListener("DOMContentLoaded", () => {
         room.style.cursor = 'none';
     };
 
-})
+
+    // Улучшенная плавная прокрутка
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            
+            // Игнорируем ссылки только с #
+            if (targetId === '#' || targetId === '#!') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                e.preventDefault();
+                smoothScrollToTarget(targetElement);
+            }
+        });
+    });
+});
+
+function smoothScrollToTarget(targetElement, offset = 0) {
+    // Рассчитываем позицию с учетом возможного фиксированного header'а
+    const headerHeight = document.querySelector('.header') ? document.querySelector('.header').offsetHeight : 0;
+    const additionalOffset = offset || headerHeight + 20; // +20px для отступа
+    
+    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - additionalOffset;
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    const duration = Math.min(1000, Math.max(500, Math.abs(distance) / 2)); // Автоподбор длительности
+
+    let startTime = null;
+
+    function animation(currentTime) {
+        if (startTime === null) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        
+        // Завершаем анимацию если достигли конца
+        if (timeElapsed > duration) {
+            window.scrollTo(0, targetPosition);
+            return;
+        }
+        
+        const progress = easeInOutCubic(timeElapsed, 0, 1, duration);
+        const run = startPosition + distance * progress;
+        
+        window.scrollTo(0, run);
+        requestAnimationFrame(animation);
+    }
+
+    requestAnimationFrame(animation);
+}
+
+// Разные функции плавности
+function easeInOutCubic(t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t * t + b;
+    t -= 2;
+    return c / 2 * (t * t * t + 2) + b;
+}
+
+function easeInOutQuad(t, b, c, d) {
+    t /= d / 2;
+    if (t < 1) return c / 2 * t * t + b;
+    t--;
+    return -c / 2 * (t * (t - 2) - 1) + b;
+}
