@@ -1,108 +1,98 @@
-// Обработка форм
+// assets/js/form.js - обновленная версия для InfinityFree
 document.addEventListener('DOMContentLoaded', function() {
-    // Модальное окно
-    const modalContainer = document.querySelector('.modal__container');
-    const orderButtons = document.querySelectorAll('.btn-contact, .contact__main, .contact__footer');
-    const closeModal = document.querySelector('.modal__close');
+    const orderForms = document.querySelectorAll('form.form__submit');
     
-    // Открытие модального окна
-    orderButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            if (modalContainer) {
-                modalContainer.classList.remove('hide');
-                modalContainer.classList.add('show');
-            }
+    orderForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitOrderForm(this);
         });
     });
-    
-    // Закрытие модального окна
-    if (closeModal && modalContainer) {
-        closeModal.addEventListener('click', function() {
-            modalContainer.classList.remove('show');
-            modalContainer.classList.add('hide');
-        });
-    }
-    
-    // Валидация email
-    const emailInput = document.querySelector('input[name="email"]');
-    if (emailInput) {
-        emailInput.addEventListener('blur', function() {
-            validateEmail(this.value);
-        });
-    }
-    
-    // Активация кнопки отправки при согласии с условиями
-    const checkbox = document.querySelector('.btn__checkbox');
-    const submitBtn = document.querySelector('.btn__submit');
-    
-    if (checkbox && submitBtn) {
-        checkbox.addEventListener('change', function() {
-            submitBtn.disabled = !this.checked;
-        });
-    }
-    
-    // Отправка формы заказа
-    const orderForms = document.querySelectorAll('form.form__submit');
-    if (orderForms.length) {
-        orderForms.forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                submitOrderForm(this);
-            });
-        });
-    }
 });
 
-// Валидация email
-function validateEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValid = emailRegex.test(email);
-    
-    const emailInput = document.querySelector('input[name="email"]');
-    if (emailInput) {
-        if (isValid) {
-            emailInput.style.borderColor = 'green';
-        } else {
-            emailInput.style.borderColor = 'red';
-        }
-    }
-    
-    return isValid;
-}
-
-// Отправка формы заказа
-function submitOrderForm(form) {
+async function submitOrderForm(form) {
     const formData = new FormData(form);
+    const submitBtn = form.querySelector('.btn__submit');
     
-    // Валидация
-    if (!validateEmail(formData.get('email'))) {
-        alert('Пожалуйста, введите корректный email');
-        return;
-    }
+    // Показываем состояние загрузки
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Отправка...';
+    submitBtn.disabled = true;
     
-    // Отправка данных на сервер
-    fetch('sendmail.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
+    try {
+        const response = await fetch('sendmail.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
         if (data.success) {
-            alert('Ваша заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+            showMessage('✅ ' + data.message, 'success');
             form.reset();
             
-            // Закрываем модальное окно
-            const modalContainer = document.querySelector('.modal__container');
-            if (modalContainer) {
-                modalContainer.classList.remove('show');
-                modalContainer.classList.add('hide');
+            // Закрываем модальное окно если есть
+            const modal = document.querySelector('.modal__container');
+            if (modal) {
+                modal.classList.remove('show');
+                modal.classList.add('hide');
             }
         } else {
-            alert('Произошла ошибка при отправке: ' + data.message);
+            showMessage('❌ ' + data.message, 'error');
         }
-    })
-    .catch(error => {
+        
+    } catch (error) {
         console.error('Ошибка:', error);
-        alert('Произошла ошибка при отправке формы.');
-    });
+        showMessage('❌ Ошибка сети. Попробуйте позже.', 'error');
+    } finally {
+        // Восстанавливаем кнопку
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
 }
+
+function showMessage(text, type) {
+    // Создаем элемент для сообщения
+    const messageEl = document.createElement('div');
+    messageEl.className = `form-message form-message-${type}`;
+    messageEl.textContent = text;
+    messageEl.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 5px;
+        color: white;
+        z-index: 10000;
+        max-width: 300px;
+        animation: slideIn 0.3s ease;
+    `;
+    
+    messageEl.style.background = type === 'success' ? '#4CAF50' : '#f44336';
+    
+    document.body.appendChild(messageEl);
+    
+    // Автоматическое скрытие
+    setTimeout(() => {
+        messageEl.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+            if (messageEl.parentNode) {
+                messageEl.parentNode.removeChild(messageEl);
+            }
+        }, 300);
+    }, 5000);
+}
+
+// Добавляем стили для анимации
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
